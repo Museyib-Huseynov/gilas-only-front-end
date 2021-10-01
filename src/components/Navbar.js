@@ -13,10 +13,9 @@ const Navbar = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch({type: CLEAR_FILTERS});
         if (text !== '') {
+            dispatch({type: CLEAR_FILTERS});
             dispatch({type: UPDATE_FILTERS, payload: {name: 'text', value: text.toLowerCase()}});
-            setText('');
             history.push('/products');
         }
     }
@@ -24,7 +23,13 @@ const Navbar = () => {
     return (
         <NavContainer>
                 {/* logo start */}
-                <Link to='/' className='logo-container'>
+                <Link to='/' 
+                    className='logo-container' 
+                    onClick={() => {
+                        dispatch({type: CLEAR_FILTERS})
+                        setText('');
+                    }}
+                >
                     <img src={logo} alt='logo'  className='logo'/>
                 </Link>    
                 {/* logo end */}
@@ -45,8 +50,15 @@ const Navbar = () => {
 
                     {/* navlinks start */}
                     <div className='nav-links'>
-                        <NavLink to='/products' className='link1' activeClassName='active'>
-                        </NavLink>
+                        <NavLink 
+                            to='/products' 
+                            className='link1' 
+                            activeClassName='active' 
+                            onClick={() => {
+                                dispatch({type: CLEAR_FILTERS})
+                                setText('');
+                            }}
+                        />
                         <NavLink to='/newad' className='link2' activeClassName='active' />
 
                     </div>
